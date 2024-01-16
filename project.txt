@@ -1,12 +1,20 @@
-you will have to create a document where you can explain in detail how the current project is organized. It is important that it is updated throughout the life of the project and not on the last day.
-The document must include at least :
+You will have to create a document where you can explain in detail how the current project is organized. It is important that it is updated throughout the life of the project and not on the last day.
+The document must include at least:
 Record of issues that were detected during the project’s development
 Documentation of how to use the API
 Record of lessons learned
 
-15/01/2024
-- Creación de carpeta y archivos para empezar el proyecto.
-- Problemas con la configuración de typescript por desconocimiento. No sé la utilidad
-de typescript ahora mismo.
-- No sé programar en typescript y la diferencia con javascript.
-- lecciones aprendidas: comandos para instalar TS y para compilar TS y JS. 
+15/01/24
+Creación de archivos para empezar a trabajar.
+Problema a la hora de crear los archivos relacionados con TS
+debido al desconocimiento y a no entender bien para qué se utiliza.
+Lecciones aprendidas: comandos para instalar TS, comando para
+compilar TS y JS.
+
+16/01/24
+Call con Víctor Jáuregui.
+Registrar en clickup la división de tareas.
+HTML y CSS (header, sidebar, main container, button).
+Uso de Bootstrap.
+
+

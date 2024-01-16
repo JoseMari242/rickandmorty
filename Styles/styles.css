@@ -1,0 +1,59 @@
+/* Reset de márgenes y padding por defecto en el body y html */
+body, html {
+    /*background-image: url(https://phantom-elmundo.unidadeditorial.es/969fa8370baf22f4eb01721aeb23f24d/resize/1200/f/jpg/assets/multimedia/imagenes/2023/02/08/16758645043214.jpg);*/
+    margin: 0;
+    padding: 0;
+}
+
+/*Estilo para el header */
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-family: kanit;
+}
+
+/* Estilo para la sidebar */
+.--SIDEBAR-- {
+    float: left; 
+    width: 200px; 
+    height: 100%; 
+    background-color: #f2f2f2;
+    padding: 20px;
+    font-family: kanit;
+}
+
+/* Estilo para la lista dentro de la sidebar*/
+.list-group {
+    margin-bottom: 20px;
+}
+
+/* Estilo para el botón dentro de la sidebar*/
+.sidebar-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: kanit;
+}
+
+/*Estilo para el main container */
+.--MAIN-- {
+    margin-left: 220px; 
+    text-align: center;
+    font-family: kanit;
+}
+
+/*Estilo para el contenido dentro del main container */
+.container {
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 20px auto; 
+    max-width: 600px; 
+    font-family: kanit;
+}

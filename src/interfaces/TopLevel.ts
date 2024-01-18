@@ -29,4 +29,12 @@ export interface Characters {
     species: string;
     gender: string;
     image: string;
+    location: string[];
+}
+
+export interface Location {
+    name: string;
+    type: string;
+    dimension: string;
+
 }

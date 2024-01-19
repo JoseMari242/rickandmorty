@@ -1,6 +1,6 @@
 /* Reset de márgenes y padding por defecto en el body y html */
 body, html {
-    /*background-image: url(https://phantom-elmundo.unidadeditorial.es/969fa8370baf22f4eb01721aeb23f24d/resize/1200/f/jpg/assets/multimedia/imagenes/2023/02/08/16758645043214.jpg);*/
+    background-image: url(https://phantom-elmundo.unidadeditorial.es/969fa8370baf22f4eb01721aeb23f24d/resize/1200/f/jpg/assets/multimedia/imagenes/2023/02/08/16758645043214.jpg);
     margin: 0;
     padding: 0;
 }
@@ -19,16 +19,36 @@ header {
     float: left; 
     width: 200px; 
     height: 100%; 
-    background-color: #f2f2f2;
+    /*background-color: #DCC053;*/
+    background-color: rgba(220, 192, 83, 0.7);
     padding: 20px;
     font-family: 'kanit';
+    border-radius: 1rem;;
 }
 
 /* Estilo para la lista dentro de la sidebar*/
 .list-group {
     margin-bottom: 20px;
-    
+    font-size: larger;
+    color:black;
+    font-weight: 600;
 }
+
+
+.list-group-item-action {
+    color: black;
+
+
+}
+.list-group-item-action:hover {
+
+    color:white;
+    background-color: rgba(220, 192, 83, 0.7)
+    
+
+}
+
+
 
 /* Estilo para el botón dentro de la sidebar*/
 .sidebar-button {
@@ -66,3 +86,9 @@ header {
   #character-detail-container {
     display: none;
   }
+
+  #list-episode {
+    max-height: 300px; /* Altura máxima de la barra lateral */
+    overflow-y: auto; /* Hace que aparezca la barra de desplazamiento vertical si es necesario */
+  }
+  

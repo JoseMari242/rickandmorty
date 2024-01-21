@@ -1,4 +1,4 @@
-/*import { TopLevel, Result } from "./interfaces/TopLevel";
+/*import { Api, Result } from "./interfaces/api";
 
 async function displayInfo() {
   try {
@@ -10,7 +10,7 @@ async function displayInfo() {
     const loadEpisodes = async () => {
       const nextLink = `https://rickandmortyapi.com/api/episode?page=${currentPage}`;
       const data = await fetch(nextLink);
-      const JSONdata: TopLevel = await data.json();
+      const JSONdata: Api = await data.json();
       displayedEpisodes = JSONdata.results;
       totalEpisodes = JSONdata.info.count; // Guarda el total de episodios
     };
@@ -18,7 +18,8 @@ async function displayInfo() {
     const renderEpisodes = () => {
       const listaEpisodios = document.getElementById('list-episode');
       const mainContainer = document.getElementById('container');
-      const nextButton = document.getElementById('nextButton');
+      const characterContainer = document.getElementById('character-container');
+      const sidebarButton = document.getElementById('sidebarButton');
 
       
       
@@ -36,11 +37,13 @@ async function displayInfo() {
         listItem.addEventListener('click', async () => {
           // Limpia el contenido del contenedor principal
           mainContainer.innerHTML = '';
+      
+          characterContainer.innerHTML = '';
 
           // Agrega detalles del episodio al contenedor principal
           const episodeDetails = document.createElement('div');
           episodeDetails.innerHTML = `
-            <div>
+            <div class="titulo">
               <h2>${result.name}</h2>
               <p>Air Date: ${result.air_date}</p>
               <p>Episode: ${result.episode}</p>
@@ -61,12 +64,15 @@ async function displayInfo() {
             const characterData = await characterResponse.json();
 
             const characterContainer = document.createElement('div');
+           
 
             const characterImage = document.createElement('img');
+            characterImage.classList.add('character-image');
             characterImage.src = characterData.image;
             characterImage.alt = characterData[CharacterProperties.Name];
 
             const characterDetails = document.createElement('p');
+            characterDetails.classList.add('character-container');
             characterDetails.innerHTML = `
               <strong>${characterData[CharacterProperties.Name]}</strong><br>
               ${CharacterProperties.Gender}: ${characterData[CharacterProperties.Gender]}<br>
@@ -75,7 +81,7 @@ async function displayInfo() {
               ${CharacterProperties.Location}: ${characterData[CharacterProperties.Location].name}
             `;
 
-            characterContainer.appendChild(characterImage);
+            characterDetails.appendChild(characterImage);
             characterContainer.appendChild(characterDetails);
 
             episodeDetails.appendChild(characterContainer);
@@ -89,15 +95,15 @@ async function displayInfo() {
       });
 
       // El botón "Next" solo se activa si hay más episodios por cargar
-      nextButton.disabled = currentPage * episodesPerPage >= totalEpisodes;
+      sidebarButton.disabled = currentPage * episodesPerPage >= totalEpisodes;
     };
 
     // Cargar episodios al inicio
     await loadEpisodes();
     renderEpisodes();
 
-    const nextButton = document.getElementById('nextButton');
-    nextButton.addEventListener('click', async () => {
+    const nextButton = document.getElementById('sidebarButton');
+    sidebarButton.addEventListener('click', async () => {
       if (currentPage * episodesPerPage < totalEpisodes) {
         currentPage++;
         await loadEpisodes();
@@ -115,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });*/
 
 // Importa las interfaces según sea necesario
-import { TopLevel, Result } from "./interfaces/TopLevel";
+/*import { Api, Result } from "./interfaces/api";
 async function displayInfo() {
   try {
     let currentPage = 1;
@@ -126,7 +132,7 @@ async function displayInfo() {
     const loadEpisodes = async () => {
       const nextLink = `https://rickandmortyapi.com/api/episode?page=${currentPage}`;
       const data = await fetch(nextLink);
-      const JSONdata: TopLevel = await data.json();
+      const JSONdata: Api = await data.json();
       displayedEpisodes = JSONdata.results;
       totalEpisodes = JSONdata.info.count; // Guarda el total de episodios
     };
@@ -330,6 +336,112 @@ document.addEventListener("DOMContentLoaded", function() {
 callApi();
 });*/
 
+import { Api, Result } from "./interfaces/api";
+
+async function callApi() {
+  try {
+    
+    const uploadEpisodes = async () => {
+      const url = `https://rickandmortyapi.com/api/episode?page=${presentPage}`;
+      const data = await fetch(url);
+      const JSONdata: Api = await data.json();
+      visibleEpisodes = JSONdata.results;
+      entireEpisodes = JSONdata.info.count; // Guarda el total de episodios*/
+      console.log(JSONdata);
+    };
+    
+    let presentPage = 1;
+    const resultsPerPage = 20;
+    let visibleEpisodes: Result[] = [];
+    let entireEpisodes: number;
+    
+    
+    const showEpisodes = () => {
+      const listEpisodes = document.getElementById('episode-list');
+      const mainContainer = document.getElementById('main-container');
+      const characterContainer = document.getElementById('character-container');
+      const nextButton = document.getElementById('nextButton');
+      
+      // Calcular el número de episodio inicial para la página actual
+      const firstEpisodeNumber = (presentPage - 1) * resultsPerPage + 1;
+
+      visibleEpisodes.forEach((result, index) => {
+        const episodeNumber = firstEpisodeNumber + index;
+
+        const listItem = document.createElement('li');
+        listItem.textContent = `Episode ${episodeNumber}`;
+        listItem.classList.add('list-group-item-action');
+
+        listItem.addEventListener('click', async () => {
+          // Limpia el contenido del contenedor principal y del contenedor de personajes
+          mainContainer.innerHTML = '';
+          characterContainer.innerHTML = '';
+
+          // Agrega detalles del episodio al contenedor principal
+          const  episodeDescription = document.createElement('div');
+          episodeDescription.innerHTML = `
+            <div class="container-style">
+              <h2>${result.name}</h2>
+              <p>Air Date: ${result.air_date}</p>
+              <p>Episode: ${result.episode}</p>
+            </div>
+          `;
+          
+          // Obtiene información de los personajes y agrega imágenes y detalles al contenedor de personajes
+          for (const characterUrl of result.characters) {
+            const characterResponse = await fetch(characterUrl);
+            const characterData = await characterResponse.json();
+
+            const characterDetails = document.createElement('div');
+            characterDetails.classList.add('character-details');
+
+            const characterImage = document.createElement('img');
+            characterImage.src = characterData.image;
+            characterImage.alt = characterData.name;
+            characterImage.classList.add('character-image');
+
+            characterDetails.innerHTML =  ` 
+            <strong>${characterData.name}</strong><br>
+              Gender: ${characterData.gender}<br>
+              Status: ${characterData.status}<br>
+              Species: ${characterData.species}<br>
+              Location: ${characterData.location.name}
+            `;
+
+            characterDetails.appendChild(characterImage);
+            characterContainer.appendChild(characterDetails);
+          }
+
+          mainContainer.appendChild(episodeDescription);
+        });
+
+        listEpisodes.appendChild(listItem);
+      });
+
+      // El botón "Next" solo se activa si hay más episodios por cargar
+      nextButton.disabled = presentPage * resultsPerPage >= entireEpisodes;
+    };
+
+    await uploadEpisodes();
+    showEpisodes();
+
+    const nextButton = document.getElementById('nextButton');
+    nextButton.addEventListener('click', async () => {
+      if (presentPage * resultsPerPage < entireEpisodes) {
+        presentPage++;
+        await uploadEpisodes();
+        showEpisodes();
+      }
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  callApi();
+});
 
 
 

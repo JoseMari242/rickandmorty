@@ -17,6 +17,7 @@ header {
     margin-bottom: 3rem;
     font-family: 'Rubik burned';
     font-size: 10rem;
+    cursor:pointer;
 }
 
 .episode-list{
@@ -25,7 +26,7 @@ header {
     text-align: center;
 }
    
-                /* SIDEBAR  */
+                /* SIDEBAR */ 
 .sidebar_style {
     float: left; 
     width: 250px; 
@@ -64,7 +65,7 @@ header {
 } 
 
 
-                /* SIDEBAR BUTTON   */
+                /* SIDEBAR BUTTON  */
 
 .sidebar-button {
     display: block;
@@ -90,7 +91,7 @@ header {
 }
 
 
-                /*CONTENT INSIDE MAIN CONTAINER */
+                /*CONTENT INSIDE MAIN CONTAINER*/
 
 .container-style {
     border: 0px solid #ccc;  
@@ -183,6 +184,8 @@ header {
 .character-episode {
     background-color: #E8CD40;
     border-radius: 2rem;
+    text-align: center;
+    font-weight: 600;
 
 }
 
@@ -211,13 +214,30 @@ header {
 }
 
 .character-card {
-    /* background-color: red; */
+    /* background-color: red;*/
     justify-content: center;
 }
 
 .location-details {
-    /* background-color: red; */
+    /* background-color: red;*/
     padding-top: 8rem;
 }
 
+@media only screen and (max-width: 768px) {
+    header {
+        font-size: 2rem; /* Reducir el tamaño del encabezado para pantallas más pequeñas */
+    }
 
+    .sidebar_style {
+        width: 100%;
+    }
+
+
+    .sidebar-button {
+        width: 60%; /* Ajustar el ancho del botón al 100% para pantallas más pequeñas */
+    }
+
+    .container-style {
+        padding-left: 1rem; /* Ajustar el relleno izquierdo para pantallas más pequeñas */
+    }
+}

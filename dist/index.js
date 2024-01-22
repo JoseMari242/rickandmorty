@@ -66,9 +66,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 Species: ${characterData.species}<br>
                 Status: ${characterData.status}
               `;
-                                characterName.addEventListener('click', () => {
+                                characterName.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
                                     showCharacterDetails(characterData, characterContainer);
-                                });
+                                }));
                                 characterDetails.appendChild(characterName);
                                 characterDetails.appendChild(characterImage);
                                 characterContainer.appendChild(characterDetails);
@@ -82,8 +82,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 };
                 // Function to show character details
                 function showCharacterDetails(character, container) {
-                    container.classList.add("character-card");
-                    container.innerHTML = `
+                    return __awaiter(this, void 0, void 0, function* () {
+                        container.classList.add("character-card");
+                        const characterEpisodes = yield getCharacterEpisodes(character);
+                        container.innerHTML = `
           <div class="character-details">
             <h2>${character.name}</h2>
             <img src="${character.image}" alt="${character.name}" class="character-image">
@@ -93,11 +95,23 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>Origin: ${character.origin.name}</p>
             <p>Location: <a href="#" id="locationLink">${character.location.name}</a></p>
           </div>
+          <div class="character-episode">
+            <p class="episode">Episodes: ${characterEpisodes.length}</p>
+            <ul id="episodesList" class="totalEpisodes"></ul>
+          </div>
         `;
-                    const locationLink = document.getElementById("locationLink");
-                    locationLink.addEventListener("click", () => __awaiter(this, void 0, void 0, function* () {
-                        yield loadLocationDetails(character.location.url, container);
-                    }));
+                        const locationLink = document.getElementById("locationLink");
+                        locationLink.addEventListener("click", () => __awaiter(this, void 0, void 0, function* () {
+                            yield loadLocationDetails(character.location.url, container);
+                        }));
+                        const episodesList = document.getElementById("episodesList");
+                        episodesList.classList.add('residents-card');
+                        characterEpisodes.forEach((episode) => {
+                            const episodeItem = document.createElement('li');
+                            episodeItem.textContent = `Episode: ${episode.episode}`;
+                            episodesList.appendChild(episodeItem);
+                        });
+                    });
                 }
                 // Function to load location details
                 function loadLocationDetails(locationUrl, container) {
@@ -105,18 +119,47 @@ document.addEventListener("DOMContentLoaded", function () {
                         try {
                             const locationResponse = yield fetch(locationUrl);
                             const locationData = yield locationResponse.json();
+                            // Limpiar el contenedor antes de agregar la información de la ubicación
+                            container.innerHTML = '';
                             container.innerHTML += `
             <div class="location-details">
               <h3>${locationData.name}</h3>
               <p>Type: ${locationData.type}</p>
               <p>Dimension: ${locationData.dimension}</p>
-              <p>Residents: ${locationData.residents.length}</p>
+              <p>Residents:</p>
+              <ul id="residentsList"></ul>
             </div>
           `;
+                            const residentsList = document.getElementById("residentsList");
+                            residentsList.classList.add('residents-card');
+                            for (const residentUrl of locationData.residents) {
+                                const residentResponse = yield fetch(residentUrl);
+                                const residentData = yield residentResponse.json();
+                                const residentItem = document.createElement('li');
+                                residentItem.innerHTML = `
+              <div class="residents-container">
+                <strong>${residentData.name}</strong>
+                <img src="${residentData.image}" alt="${residentData.name}" class="resident-image">
+              </div>`;
+                                residentsList.appendChild(residentItem);
+                            }
+                            // ... tu código para agregar información adicional si es necesario
                         }
                         catch (error) {
                             console.log(error);
                         }
+                    });
+                }
+                // Function to get all episodes where a character has appeared
+                function getCharacterEpisodes(character) {
+                    return __awaiter(this, void 0, void 0, function* () {
+                        const episodes = [];
+                        for (const episodeUrl of character.episode) {
+                            const episodeResponse = yield fetch(episodeUrl);
+                            const episodeData = yield episodeResponse.json();
+                            episodes.push(episodeData);
+                        }
+                        return episodes;
                     });
                 }
                 // CALL FUNCTIONS

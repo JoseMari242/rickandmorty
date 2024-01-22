@@ -29,12 +29,29 @@ export interface Characters {
     species: string;
     gender: string;
     image: string;
-    location: string[];
+    origin: { name: string };
+    location: { name: string; url: string }
+    episode: string[];
 }
 
 export interface Location {
     name: string;
     type: string;
     dimension: string;
-
+    residents: string[];
 }
+
+export interface Residents {
+    name: string;
+    status: string,
+    species: string,
+    type: any,
+    gender: string,
+    origin: {},
+    location: {},
+    image: string;
+    episode: [],
+    url: string;
+    created: number;
+  }
+

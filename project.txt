@@ -1,44 +1,74 @@
-You will have to create a document where you can explain in detail how the current project is organized. It is important that it is updated throughout the life of the project and not on the last day.
-The document must include at least:
-Record of issues that were detected during the project’s development
-Documentation of how to use the API
-Record of lessons learned
 
-15/01/24
-Creación de archivos para empezar a trabajar.
-Problema a la hora de crear los archivos relacionados con TS
-debido al desconocimiento y a no entender bien para qué se utiliza.
-Lecciones aprendidas: comandos para instalar TS, comando para
-compilar TS y JS.
+Project Log - Organization and Development
 
-16/01/24
-Call con Víctor Jáuregui.
-Registrar en clickup la división de tareas.
-HTML y CSS (header, sidebar, main container, button).
-Uso de Bootstrap.
-Llamar a la API.
-Mostrar la información de la API en la sidebar y en el main.
+This document provides a detailed overview of the organization and development of the project, with updates throughout its lifecycle. It focuses on three key aspects: detected issues, API documentation, and lessons learned.
 
-17/01/24
-Workshop Víctor Jáuregui --> Explicación de interfaces, import y export.
-Asimilar el conocimiento para aplicarlo al proyecto.
-Creación de carpeta y archivo de interfaces
-Problema: tres interfaces en un único documento para sólo enlazar
-ese. Al final hemos divido las interfaces y las hemos vinculado 
-una a una.
-Reinicio del código de TS.
-Traer info de los episodios, los personajes (enum) y faltan las
-localizaciones.
+Issue Log
+15/01/24:
 
-18/01/24
-Episodios en la sidebar divididos de 20 en 20.
-Botón de Next para navegar entre los episodios.
-Añadir botón Back para volver al inicio.
+Description: Issues encountered when creating files related to TypeScript due to lack of understanding and unfamiliarity with its purpose.
+Lessons Learned: Commands for installing TypeScript, and commands for compiling TypeScript and JavaScript.
+API Documentation
 
-19/01/24
-Cambiar la sidebar porque los episodios no salían uno debajo de otro.
-Analizar el código una vez terminado.
-Empezar con CSS.
-Valorar empezar con extras.
+16/01/24:
+Actions Taken:
+Meeting with Víctor Jáuregui.
+Registration in ClickUp for task division.
+HTML and CSS development (header, sidebar, main container, button) using Bootstrap.
+API call and display of information in the sidebar and main.
 
+17/01/24:
+Actions Taken:
+Workshop with Víctor Jáuregui on interfaces, import, and export.
+Creation of folder and interface file.
+Issue resolved: division of interfaces into individual files.
+TypeScript code reset.
+Retrieval of information from episodes, characters (enum), and pending locations.
+
+18/01/24:
+Actions Taken:
+Organization of episodes in the sidebar in groups of 20.
+Implementation of "Next" button to navigate between episodes.
+Addition of "Back" button to return to the start.
+
+19/01/24:
+Actions Taken:
+Modification of the sidebar for improved display of episodes.
+Code analysis upon completion.
+Start of CSS work.
+Evaluation of potential extras.
+
+20/01/24:
+Actions Taken:
+Styling of the web interface.
+
+21/01/24:
+Actions Taken:
+Code organization.
+Addition of comments in English.
+Finalization of CSS details.
+Initiation of extra steps.
+22/01/24:
+
+Actions Taken:
+Completion of extra steps.
+Project conclusion.
+23/01/24:
+
+Actions Taken:
+Correction of null errors.
+Thorough code review.
+Preparation for presentation.
+Video recording.
+Project submission.
+
+Lessons Learned
+
+- Application of concepts such as interfaces, import, 
+and export of TypeScript to the project.
+
+ - Flexibility in the organization of interfaces and efficient 
+problem-solving during development.
+
+- Improve my skills in JavaScript, TypeScript and CSS.
 

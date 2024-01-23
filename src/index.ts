@@ -16,25 +16,25 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(JSONdata);
       };
 
-      // GLOBAL VARIABLES
+// GLOBAL VARIABLES
       let presentPage = 1;
       const resultsPerPage = 20; 
       let visibleEpisodes: Result[] = []; 
       let entireEpisodes: number;
 
+// Function to display episodes on the web page // Retrieving DOM elements
       const showEpisodes = () => {
+
         const listEpisodes = document.getElementById('episode-list');
         const mainContainer = document.getElementById('main-container');
         const characterContainer = document.getElementById('character-container');
         const nextButton = document.getElementById('nextButton');
 
-    
+// Event listener for header click
         const headerElement = document.getElementById('mainHeader');
 
         if (headerElement) {
           headerElement.addEventListener('click', () => {
-
-        
 
             const mainContainer = document.getElementById('main-container');
             const characterContainer = document.getElementById('character-container');
@@ -49,12 +49,14 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }
 
-       
+// Calculating the episode number for the current page
         const firstEpisodeNumber = (presentPage - 1) * resultsPerPage + 1;
 
         visibleEpisodes.forEach((result, index) => {
           const episodeNumber = firstEpisodeNumber + index;
 
+
+// Creating a list item for each episode    
           const listItem = document.createElement('li'); 
           listItem.textContent = `Episode ${episodeNumber}`;
           listItem.classList.add('list-group-item-action');
@@ -65,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
               characterContainer.innerHTML = '';
             }
 
+// Creating episode description      
             const episodeDescription = document.createElement('div');
             episodeDescription.innerHTML = `
               <div class="container-style">
@@ -119,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       };
 
-     
+// Function to show detailed information about a character
       async function showCharacterDetails(character: CharacterData, container: HTMLElement) {
         container.classList.add("character-card");
 
@@ -160,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
 
-    
+// Function to load details about a location
       async function loadLocationDetails(locationUrl: string, container: HTMLElement) {
         try {
           const locationResponse = await fetch(locationUrl);
@@ -198,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
 
-      
+// Function to fetch and return episodes of a character
       async function getCharacterEpisodes(character: CharacterData): Promise<Result[]> {
         const episodes: Result[] = [];
         for (const episodeUrl of character.episode) {
@@ -213,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
       await uploadEpisodes();
       showEpisodes();
 
-      
+// Event listener for the "Next" button to handle pagination
       const nextButton = document.getElementById('nextButton');
       if (nextButton) {
         nextButton.addEventListener('click', async () => {

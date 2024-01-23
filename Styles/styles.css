@@ -140,8 +140,6 @@ header {
     font-weight: 600; 
 }
 
-
-
 .residents-card {
     padding-right: 5rem;
     display: flex;
@@ -170,12 +168,10 @@ header {
 
 }
 
-
 .resident-image {
     width: 100%;
     height: auto;
 }
-
 
 .episode-details {
     color: blue;
@@ -202,13 +198,13 @@ header {
 
 }
 
-  #episode-list {
+#episode-list {
     max-height: 300px;  
     max-width: 150px; 
     overflow-y: auto;
   }
   
-  .character-name {
+.character-name {
     cursor: pointer;
     
 }

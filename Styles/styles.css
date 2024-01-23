@@ -214,18 +214,18 @@ header {
 }
 
 .character-card {
-    /* background-color: red;*/
+   
     justify-content: center;
 }
 
 .location-details {
-    /* background-color: red;*/
+    
     padding-top: 8rem;
 }
 
 @media only screen and (max-width: 768px) {
     header {
-        font-size: 2rem; /* Reducir el tamaño del encabezado para pantallas más pequeñas */
+        font-size: 2rem; 
     }
 
     .sidebar_style {
@@ -234,10 +234,10 @@ header {
 
 
     .sidebar-button {
-        width: 60%; /* Ajustar el ancho del botón al 100% para pantallas más pequeñas */
+        width: 60%; 
     }
 
     .container-style {
-        padding-left: 1rem; /* Ajustar el relleno izquierdo para pantallas más pequeñas */
+        padding-left: 1rem; 
     }
 }

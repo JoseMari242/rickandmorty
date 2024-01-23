@@ -1,4 +1,3 @@
-// IMPORT API'S INTERFACES
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-//DOM
+// DOM
 document.addEventListener("DOMContentLoaded", function () {
     // PRINCIPAL FUNCTION
     function callApi() {
@@ -17,43 +16,46 @@ document.addEventListener("DOMContentLoaded", function () {
                 const uploadEpisodes = () => __awaiter(this, void 0, void 0, function* () {
                     const url = `https://rickandmortyapi.com/api/episode?page=${presentPage}`;
                     const data = yield fetch(url);
-                    const JSONdata = yield data.json(); // Change information to JSON syntax
+                    const JSONdata = yield data.json();
                     visibleEpisodes = JSONdata.results;
-                    entireEpisodes = JSONdata.info.count; // Save total episodes
+                    entireEpisodes = JSONdata.info.count;
                     console.log(JSONdata);
                 });
                 // GLOBAL VARIABLES
                 let presentPage = 1;
-                const resultsPerPage = 20; // Fetch sections in sets of 20
-                let visibleEpisodes = []; // Execute the Result interface
+                const resultsPerPage = 20;
+                let visibleEpisodes = [];
                 let entireEpisodes;
                 const showEpisodes = () => {
                     const listEpisodes = document.getElementById('episode-list');
                     const mainContainer = document.getElementById('main-container');
                     const characterContainer = document.getElementById('character-container');
                     const nextButton = document.getElementById('nextButton');
-                    // LINK-HEADER
                     const headerElement = document.getElementById('mainHeader');
                     if (headerElement) {
                         headerElement.addEventListener('click', () => {
-                            // Return to initial web
                             const mainContainer = document.getElementById('main-container');
                             const characterContainer = document.getElementById('character-container');
-                            mainContainer.innerHTML = '';
-                            characterContainer.innerHTML = '';
-                            nextButton.style.display = 'block';
+                            if (mainContainer && characterContainer) {
+                                mainContainer.innerHTML = '';
+                                characterContainer.innerHTML = '';
+                            }
+                            if (nextButton) {
+                                nextButton.style.display = 'block';
+                            }
                         });
                     }
-                    // Compute initial episode number for the present page
                     const firstEpisodeNumber = (presentPage - 1) * resultsPerPage + 1;
                     visibleEpisodes.forEach((result, index) => {
                         const episodeNumber = firstEpisodeNumber + index;
-                        const listItem = document.createElement('li'); // Generate episode roster
+                        const listItem = document.createElement('li');
                         listItem.textContent = `Episode ${episodeNumber}`;
                         listItem.classList.add('list-group-item-action');
                         listItem.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
-                            mainContainer.innerHTML = '';
-                            characterContainer.innerHTML = '';
+                            if (mainContainer && characterContainer) {
+                                mainContainer.innerHTML = '';
+                                characterContainer.innerHTML = '';
+                            }
                             const episodeDescription = document.createElement('div');
                             episodeDescription.innerHTML = `
               <div class="container-style">
@@ -85,15 +87,19 @@ document.addEventListener("DOMContentLoaded", function () {
                                 characterDetails.appendChild(characterImage);
                                 characterContainer.appendChild(characterDetails);
                             }
-                            mainContainer.appendChild(episodeDescription);
+                            if (mainContainer) {
+                                mainContainer.appendChild(episodeDescription);
+                            }
                         }));
-                        listEpisodes.appendChild(listItem);
+                        if (listEpisodes) {
+                            listEpisodes.appendChild(listItem);
+                        }
                     });
-                    // Trigger Next button functionality only when more episodes need loading
-                    nextButton.style.display = presentPage * resultsPerPage >= entireEpisodes ? 'none' : 'block';
-                    nextButton.disabled = presentPage * resultsPerPage >= entireEpisodes;
+                    if (nextButton) {
+                        nextButton.style.display = presentPage * resultsPerPage >= entireEpisodes ? 'none' : 'block';
+                        nextButton.disabled = presentPage * resultsPerPage >= entireEpisodes;
+                    }
                 };
-                // Functionality of the Next button
                 function showCharacterDetails(character, container) {
                     return __awaiter(this, void 0, void 0, function* () {
                         container.classList.add("character-card");
@@ -114,19 +120,22 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
         `;
                         const locationLink = document.getElementById("locationLink");
-                        locationLink.addEventListener("click", () => __awaiter(this, void 0, void 0, function* () {
-                            yield loadLocationDetails(character.location.url, container);
-                        }));
+                        if (locationLink) {
+                            locationLink.addEventListener("click", () => __awaiter(this, void 0, void 0, function* () {
+                                yield loadLocationDetails(character.location.url, container);
+                            }));
+                        }
                         const episodesList = document.getElementById("episodesList");
-                        episodesList.classList.add('residents-card');
-                        characterEpisodes.forEach((episode) => {
-                            const episodeItem = document.createElement('li');
-                            episodeItem.textContent = `Episode: ${episode.episode}`;
-                            episodesList.appendChild(episodeItem);
-                        });
+                        if (episodesList) {
+                            episodesList.classList.add('residents-card');
+                            characterEpisodes.forEach((episode) => {
+                                const episodeItem = document.createElement('li');
+                                episodeItem.textContent = `Episode: ${episode.episode}`;
+                                episodesList.appendChild(episodeItem);
+                            });
+                        }
                     });
                 }
-                // Function to load location details
                 function loadLocationDetails(locationUrl, container) {
                     return __awaiter(this, void 0, void 0, function* () {
                         try {
@@ -142,16 +151,18 @@ document.addEventListener("DOMContentLoaded", function () {
               <ul id="residentsList"></ul>
           `;
                             const residentsList = document.getElementById("residentsList");
-                            residentsList.classList.add('residents-card');
-                            for (const residentUrl of locationData.residents) {
-                                const residentResponse = yield fetch(residentUrl);
-                                const residentData = yield residentResponse.json();
-                                const residentItem = document.createElement('li');
-                                residentItem.innerHTML = ` <div class="residents-container">
-              <strong>${residentData.name}</strong>
-              <img src="${residentData.image}" alt="${residentData.name}" class="resident-image">
-            </div>`;
-                                residentsList.appendChild(residentItem);
+                            if (residentsList) {
+                                residentsList.classList.add('residents-card');
+                                for (const residentUrl of locationData.residents) {
+                                    const residentResponse = yield fetch(residentUrl);
+                                    const residentData = yield residentResponse.json();
+                                    const residentItem = document.createElement('li');
+                                    residentItem.innerHTML = ` <div class="residents-container">
+                <strong>${residentData.name}</strong>
+                <img src="${residentData.image}" alt="${residentData.name}" class="resident-image">
+              </div>`;
+                                    residentsList.appendChild(residentItem);
+                                }
                             }
                         }
                         catch (error) {
@@ -159,7 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     });
                 }
-                // CHARACTER EPISODE
                 function getCharacterEpisodes(character) {
                     return __awaiter(this, void 0, void 0, function* () {
                         const episodes = [];
@@ -171,24 +181,24 @@ document.addEventListener("DOMContentLoaded", function () {
                         return episodes;
                     });
                 }
-                // CALL FUNCTIONS 
                 yield uploadEpisodes();
                 showEpisodes();
-                // NEXT BUTTON FUNCTIONALITY
                 const nextButton = document.getElementById('nextButton');
-                nextButton.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
-                    if (presentPage * resultsPerPage < entireEpisodes) {
-                        presentPage++;
-                        yield uploadEpisodes();
-                        showEpisodes();
-                    }
-                }));
+                if (nextButton) {
+                    nextButton.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
+                        if (presentPage * resultsPerPage < entireEpisodes) {
+                            presentPage++;
+                            yield uploadEpisodes();
+                            showEpisodes();
+                        }
+                    }));
+                }
             }
             catch (error) {
                 console.log(error);
             }
         });
     }
-    callApi(); // CALL MAIN FUNCTION 
+    callApi();
 });
 export {};

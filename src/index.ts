@@ -1,8 +1,7 @@
 // IMPORT API'S INTERFACES
-
 import { Api, Result, CharacterData } from "./interfaces/api";
 
-//DOM
+// DOM
 document.addEventListener("DOMContentLoaded", function () {
 
   // PRINCIPAL FUNCTION
@@ -11,57 +10,60 @@ document.addEventListener("DOMContentLoaded", function () {
       const uploadEpisodes = async () => {
         const url = `https://rickandmortyapi.com/api/episode?page=${presentPage}`;
         const data = await fetch(url);
-        const JSONdata: Api = await data.json(); // Change information to JSON syntax
+        const JSONdata: Api = await data.json(); 
         visibleEpisodes = JSONdata.results;
-        entireEpisodes = JSONdata.info.count; // Save total episodes
+        entireEpisodes = JSONdata.info.count; 
         console.log(JSONdata);
       };
 
       // GLOBAL VARIABLES
       let presentPage = 1;
-      const resultsPerPage = 20; // Fetch sections in sets of 20
-      let visibleEpisodes: Result[] = []; // Execute the Result interface
+      const resultsPerPage = 20; 
+      let visibleEpisodes: Result[] = []; 
       let entireEpisodes: number;
 
-     
       const showEpisodes = () => {
         const listEpisodes = document.getElementById('episode-list');
         const mainContainer = document.getElementById('main-container');
         const characterContainer = document.getElementById('character-container');
         const nextButton = document.getElementById('nextButton');
-       
 
-        // LINK-HEADER
+    
         const headerElement = document.getElementById('mainHeader');
 
         if (headerElement) {
           headerElement.addEventListener('click', () => {
-            
-            // Return to initial web
+
+        
 
             const mainContainer = document.getElementById('main-container');
             const characterContainer = document.getElementById('character-container');
-            mainContainer.innerHTML = '';  
-            characterContainer.innerHTML = '';  
-      
-            
-            nextButton.style.display = 'block';
+            if (mainContainer && characterContainer) {
+              mainContainer.innerHTML = '';
+              characterContainer.innerHTML = '';
+            }
+
+            if (nextButton) {
+              nextButton.style.display = 'block';
+            }
           });
         }
-      
-        // Compute initial episode number for the present page
+
+       
         const firstEpisodeNumber = (presentPage - 1) * resultsPerPage + 1;
 
         visibleEpisodes.forEach((result, index) => {
           const episodeNumber = firstEpisodeNumber + index;
 
-          const listItem = document.createElement('li'); // Generate episode roster
+          const listItem = document.createElement('li'); 
           listItem.textContent = `Episode ${episodeNumber}`;
           listItem.classList.add('list-group-item-action');
 
           listItem.addEventListener('click', async () => {
-            mainContainer.innerHTML = '';
-            characterContainer.innerHTML = '';
+            if (mainContainer && characterContainer) {
+              mainContainer.innerHTML = '';
+              characterContainer.innerHTML = '';
+            }
 
             const episodeDescription = document.createElement('div');
             episodeDescription.innerHTML = `
@@ -100,19 +102,24 @@ document.addEventListener("DOMContentLoaded", function () {
               characterContainer.appendChild(characterDetails);
             }
 
-            mainContainer.appendChild(episodeDescription);
+            if (mainContainer) {
+              mainContainer.appendChild(episodeDescription);
+            }
           });
 
-          listEpisodes.appendChild(listItem);
+          if (listEpisodes) {
+            listEpisodes.appendChild(listItem);
+          }
         });
 
-        // Trigger Next button functionality only when more episodes need loading
-
-        nextButton.style.display = presentPage * resultsPerPage >= entireEpisodes ? 'none' : 'block';
-        nextButton.disabled = presentPage * resultsPerPage >= entireEpisodes;
+        
+        if (nextButton) {
+          nextButton.style.display = presentPage * resultsPerPage >= entireEpisodes ? 'none' : 'block';
+          nextButton.disabled = presentPage * resultsPerPage >= entireEpisodes;
+        }
       };
 
-      // Functionality of the Next button
+     
       async function showCharacterDetails(character: CharacterData, container: HTMLElement) {
         container.classList.add("character-card");
 
@@ -134,24 +141,26 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
         `;
 
-        
-
         const locationLink = document.getElementById("locationLink");
-        locationLink.addEventListener("click", async () => {
-          await loadLocationDetails(character.location.url, container);
-        });
+        if (locationLink) {
+          locationLink.addEventListener("click", async () => {
+            await loadLocationDetails(character.location.url, container);
+          });
+        }
 
         const episodesList = document.getElementById("episodesList");
-        episodesList.classList.add('residents-card');
+        if (episodesList) {
+          episodesList.classList.add('residents-card');
 
-        characterEpisodes.forEach((episode) => {
-          const episodeItem = document.createElement('li');
-          episodeItem.textContent = `Episode: ${episode.episode}`;
-          episodesList.appendChild(episodeItem);
-        });
+          characterEpisodes.forEach((episode) => {
+            const episodeItem = document.createElement('li');
+            episodeItem.textContent = `Episode: ${episode.episode}`;
+            episodesList.appendChild(episodeItem);
+          });
+        }
       }
 
-      // Function to load location details
+    
       async function loadLocationDetails(locationUrl: string, container: HTMLElement) {
         try {
           const locationResponse = await fetch(locationUrl);
@@ -169,25 +178,27 @@ document.addEventListener("DOMContentLoaded", function () {
           `;
 
           const residentsList = document.getElementById("residentsList");
-          residentsList.classList.add('residents-card');
+          if (residentsList) {
+            residentsList.classList.add('residents-card');
 
-          for (const residentUrl of locationData.residents) {
-            const residentResponse = await fetch(residentUrl);
-            const residentData = await residentResponse.json();
+            for (const residentUrl of locationData.residents) {
+              const residentResponse = await fetch(residentUrl);
+              const residentData = await residentResponse.json();
 
-            const residentItem = document.createElement('li');
-            residentItem.innerHTML = ` <div class="residents-container">
-              <strong>${residentData.name}</strong>
-              <img src="${residentData.image}" alt="${residentData.name}" class="resident-image">
-            </div>`;
-            residentsList.appendChild(residentItem);
+              const residentItem = document.createElement('li');
+              residentItem.innerHTML = ` <div class="residents-container">
+                <strong>${residentData.name}</strong>
+                <img src="${residentData.image}" alt="${residentData.name}" class="resident-image">
+              </div>`;
+              residentsList.appendChild(residentItem);
+            }
           }
         } catch (error) {
           console.log(error);
         }
       }
 
-      // CHARACTER EPISODE
+      
       async function getCharacterEpisodes(character: CharacterData): Promise<Result[]> {
         const episodes: Result[] = [];
         for (const episodeUrl of character.episode) {
@@ -198,27 +209,28 @@ document.addEventListener("DOMContentLoaded", function () {
         return episodes;
       }
 
-      // CALL FUNCTIONS 
+   
       await uploadEpisodes();
       showEpisodes();
 
-      // NEXT BUTTON FUNCTIONALITY
+      
       const nextButton = document.getElementById('nextButton');
-      nextButton.addEventListener('click', async () => {
-        if (presentPage * resultsPerPage < entireEpisodes) {
-          presentPage++;
-          await uploadEpisodes();
-          showEpisodes();
-        }
-      });
+      if (nextButton) {
+        nextButton.addEventListener('click', async () => {
+          if (presentPage * resultsPerPage < entireEpisodes) {
+            presentPage++;
+            await uploadEpisodes();
+            showEpisodes();
+          }
+        });
+      }
     } catch (error) {
       console.log(error);
     }
   }
 
-  callApi(); // CALL MAIN FUNCTION 
+  callApi(); 
 });
-
 
 
 

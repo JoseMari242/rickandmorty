@@ -4,7 +4,7 @@ Project Log - Organization and Development
 This document provides a detailed overview of the organization and development of the project, with updates throughout its lifecycle. It focuses on three key aspects: detected issues, API documentation, and lessons learned.
 
 Issue Log
-15/01/24:
+15/01/24: 
 
 Description: Issues encountered when creating files related to TypeScript due to lack of understanding and unfamiliarity with its purpose.
 Lessons Learned: Commands for installing TypeScript, and commands for compiling TypeScript and JavaScript.
